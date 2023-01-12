@@ -5,6 +5,7 @@ namespace Core;
 use Core\CoreMiddlewares\AuthenticateUser;
 use Core\CoreMiddlewares\RequestCaptureMiddleware;
 use Core\CoreMiddlewares\SessionStartMiddleware;
+use Core\CoreMiddlewares\ThrottleRequests;
 use Core\Middlewares\AuthMiddleware;
 
 class Kernel
@@ -15,6 +16,7 @@ class Kernel
         SessionStartMiddleware::class,
         RequestCaptureMiddleware::class,
         AuthenticateUser::class,
+        ThrottleRequests::class,
     ];
 
     public array $registeredRouteMiddlewares = [
