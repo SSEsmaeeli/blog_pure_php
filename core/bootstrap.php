@@ -8,7 +8,8 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->safeLoad();
 
-$app = new App();
+$app = App::instance();
+
 $app->set('config_database', require '../configs/database.php');
 
 $app->set('PDO', Connection::handle(
@@ -16,6 +17,7 @@ $app->set('PDO', Connection::handle(
 ));
 
 $router = Router::load('../routes/web.php')
+    ->setContainer($app)
     ->resolve(
         $_SERVER['REQUEST_URI'],
         $_SERVER['REQUEST_METHOD']

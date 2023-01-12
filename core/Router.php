@@ -8,10 +8,18 @@ class Router
 {
     private const CONTROLLER_BASE_PATH = 'App\\Http\\Controllers\\';
 
+    private App $app;
+
     private array $routes = [
         'GET' => [],
         'POST' => []
     ];
+
+    public function setContainer(App $container): static
+    {
+        $this->app = $container;
+        return $this;
+    }
 
     public static function load($routeFile): static
     {
@@ -52,7 +60,7 @@ class Router
 
      private function callAction(string $controller, string $action)
      {
-         $controller = new (static::CONTROLLER_BASE_PATH.$controller);
+         $controller = $this->app->resolve(static::CONTROLLER_BASE_PATH . $controller);
 
          if(! method_exists($controller, $action)) {
              $controllerName = $controller::class;
