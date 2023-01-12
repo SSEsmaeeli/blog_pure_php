@@ -16,5 +16,7 @@ class LoginController
 
         $this->authenticationService
             ->handle();
+
+        redirectTo('/');
     }
 }

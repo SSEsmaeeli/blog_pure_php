@@ -36,10 +36,25 @@
     <nav>
         <ul>
             <li><a href="/">Overview</a></li>
-            <!-- @todo: add auth -->
+            <?php if(isAuth()) { ?>
             <li><a href="posts/create">New Post</li>
+            <?php } ?>
             <li><a href="#">Authors</a></li>
 
-            <li class="float-right mr-2"><a href="/login">Login</a></li>
+            <li class="float-right mr-2">
+                <?php
+                    if(isAuth()) {
+                ?>
+                        <form action="logout" method="post" ">
+                            <button type="submit">Logout</button>
+                        </form>
+                <?php
+                    }else{
+                ?>
+                        <a href="/login">Login</a>
+                <?php
+                    }
+                ?>
+            </li>
         </ul>
     </nav>

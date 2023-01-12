@@ -1,22 +1,36 @@
 <?php
 
 namespace App\Services;
-class AuthenticationService
+
+use App\Models\User;
+use Core\Contracts\Service;
+use Core\Session;
+
+readonly class AuthenticationService implements Service
 {
+    public function __construct(private readonly Session $session)
+    {}
+
     public function handle()
     {
         $user = $this->getUserOrFail();
 
-        return $this->successfulLogin($user);
+        $this->putUserOnSession($user);
     }
 
     private function getUserOrFail()
     {
-        // @todo
+        $user = User::query()->findByUsernameAndPassword(request()->get('username'), md5(request()->get('password')));
+
+        if(! $user) {
+            throw new \Exception('User/Password is wrong');
+        }
+
+        return $user;
     }
 
-    private function successfulLogin($user)
+    private function putUserOnSession($user): void
     {
-        // @todo
+        $this->session->set('user_id', $user->id);
     }
 }
