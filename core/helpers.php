@@ -28,3 +28,19 @@ if(! function_exists('abort')) {
         die($message);
     }
 }
+
+if(! function_exists('base_path')) {
+    function base_path($path): string
+    {
+        return BASE_PATH. $path;
+    }
+}
+
+if(! function_exists('view')) {
+    function view($viewName, ?array $parameters = [])
+    {
+        extract($parameters);
+
+        require base_path('/resources/views/'.$viewName.'.view.php');
+    }
+}

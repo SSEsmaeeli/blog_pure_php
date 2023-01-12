@@ -6,6 +6,11 @@ class PagesController
 {
     public function index()
     {
-        dd('Yes router is working and you came to controller!');
+        return view('index');
+    }
+
+    public function login()
+    {
+        return view('login');
     }
 }
