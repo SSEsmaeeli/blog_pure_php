@@ -19,3 +19,12 @@ if(! function_exists('dd')) {
         die();
     }
 }
+
+if(! function_exists('abort')) {
+    function abort(?int $statusCode, ?string $message): string
+    {
+        http_response_code($statusCode);
+
+        die($message);
+    }
+}

@@ -2,6 +2,7 @@
 
 use Core\App;
 use Core\Connection;
+use Core\Router;
 use Dotenv\Dotenv;
 
 require __DIR__.'/../vendor/autoload.php';
@@ -16,5 +17,8 @@ $app->set('PDO', Connection::handle(
     $app->get('config_database')['connection']
 ));
 
-
-echo 'Database is loaded successfully!';
+$router = Router::load('../routes/web.php')
+            ->resolve(
+                $_SERVER['REQUEST_URI'],
+                $_SERVER['REQUEST_METHOD']
+            );
