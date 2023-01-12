@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Services;
+
 use App\Models\User;
+use Core\Contracts\Service;
 use Core\Session;
 
-class AuthenticationService
+readonly class AuthenticationService implements Service
 {
     public function __construct(private readonly Session $session)
     {}
