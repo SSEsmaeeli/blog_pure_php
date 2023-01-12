@@ -1,4 +1,22 @@
 {
+    "name": "ssesmaeeli/blog",
     "require": {
+        "php": "^8.2",
+        "ext-pdo": "*",
+        "vlucas/phpdotenv": "^5.5"
+    },
+    "authors": [
+        {
+            "name": "Sajjad Esmaeeli",
+            "email": "s.sajjad.esmaeeli@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": [
+            "core/helpers.php"
+        ]
     }
 }
