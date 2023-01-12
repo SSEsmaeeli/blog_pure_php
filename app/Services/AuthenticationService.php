@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Services;
+use App\Models\User;
+
 class AuthenticationService
 {
     public function handle()
@@ -12,11 +14,17 @@ class AuthenticationService
 
     private function getUserOrFail()
     {
-        // @todo
+        $user = User::query()->findByUsernameAndPassword(request()->get('username'), md5(request()->get('password')));
+
+        if(! $user) {
+            throw new \Exception('User/Password is wrong');
+        }
+
+        return $user;
     }
 
     private function successfulLogin($user)
     {
-        // @todo
+        dd($user);
     }
 }
