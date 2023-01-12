@@ -16,9 +16,4 @@ $app->set('PDO', Connection::handle(
     $app->get('config_database')['connection']
 ));
 
-$router = Router::load('../routes/web.php')
-    ->setContainer($app)
-    ->resolve(
-        $_SERVER['REQUEST_URI'],
-        $_SERVER['REQUEST_METHOD']
-    );
+return $app;
