@@ -2,6 +2,7 @@
 
 namespace Core;
 
+use Core\CoreMiddlewares\AuthenticateUser;
 use Core\CoreMiddlewares\RequestCaptureMiddleware;
 use Core\CoreMiddlewares\SessionStartMiddleware;
 
@@ -12,6 +13,7 @@ class Kernel
     protected array $globalMiddlewares = [
         SessionStartMiddleware::class,
         RequestCaptureMiddleware::class,
+        AuthenticateUser::class,
     ];
 
     public function handle(): void

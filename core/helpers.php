@@ -3,14 +3,14 @@
 use Core\App;
 use Core\Request;
 
-if(! function_exists('env')) {
+if (!function_exists('env')) {
     function env(string $key, string $default = null): string|null
     {
         return $_ENV[$key] ?? $default;
     }
 }
 
-if(! function_exists('dd')) {
+if (!function_exists('dd')) {
     function dd(...$values): void
     {
         foreach ($values as $value) {
@@ -23,7 +23,7 @@ if(! function_exists('dd')) {
     }
 }
 
-if(! function_exists('abort')) {
+if (!function_exists('abort')) {
     function abort(?int $statusCode, ?string $message): string
     {
         http_response_code($statusCode);
@@ -32,23 +32,23 @@ if(! function_exists('abort')) {
     }
 }
 
-if(! function_exists('base_path')) {
+if (!function_exists('base_path')) {
     function base_path($path): string
     {
-        return BASE_PATH. $path;
+        return BASE_PATH . $path;
     }
 }
 
-if(! function_exists('view')) {
+if (!function_exists('view')) {
     function view($viewName, ?array $parameters = [])
     {
         extract($parameters);
 
-        require base_path('/resources/views/'.$viewName.'.view.php');
+        require base_path('/resources/views/' . $viewName . '.view.php');
     }
 }
 
-if(! function_exists('request')) {
+if (!function_exists('request')) {
     function request(?string $parameterName = null): mixed
     {
         $app = App::instance();
@@ -56,9 +56,25 @@ if(! function_exists('request')) {
     }
 }
 
-if(! function_exists('redirectTo')) {
+if (!function_exists('redirectTo')) {
     function redirectTo($location)
     {
         header("location: {$location}");
+    }
+}
+
+if (!function_exists('authUser')) {
+    function authUser()
+    {
+        $app = App::instance();
+        return $app->get('AuthenticatedUser');
+    }
+}
+
+if (!function_exists('isAuth')) {
+    function isAuth()
+    {
+        $app = App::instance();
+        return !is_null($app->get('AuthenticatedUser'));
     }
 }

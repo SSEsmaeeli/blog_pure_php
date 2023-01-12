@@ -11,18 +11,36 @@ class App
 
     public array $instances = [];
 
+    protected array $arrays = [];
+
     /**
-     *  Get the globally available instance (Singleton Instance)
+     *  Get the globally available instance
      *
      * @return static
      */
     public static function instance(): static
     {
+
         if (is_null(static::$instance)) {
             static::$instance = new static;
         }
 
         return static::$instance;
+    }
+
+    public function setArray($key, $value = null): void
+    {
+        $this->arrays[$key] = $value;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function getArray($key): mixed
+    {
+        return array_key_exists($key, $this->arrays) ?
+            $this->arrays[$key] :
+            throw new \Exception('Sorry, given key is not available.');
     }
 
     public function set($abstract, $concrete = NULL)
@@ -56,6 +74,15 @@ class App
         return $this->resolve($this->instances[$abstract], $parameters);
     }
 
+    /**
+     * resolve single
+     *
+     * @param string $concrete
+     * @param array|null $parameters
+     *
+     * @return mixed|object
+     * @throws \ReflectionException
+     */
     public function resolve($concrete, ?array $parameters = []): mixed
     {
         if(is_array($concrete)) {
