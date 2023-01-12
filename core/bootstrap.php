@@ -1,8 +1,7 @@
 <?php
 
 use Core\App;
-use Core\Connection;
-use Core\Router;
+use Core\Database\Connection;
 use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
