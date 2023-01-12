@@ -6,3 +6,5 @@ $router->get('', 'PagesController@index');
 $router->get('login', 'PagesController@login');
 
 $router->post('login', 'LoginController@submitLogin');
+
+$router->get('migration', 'MigrationController@run');
