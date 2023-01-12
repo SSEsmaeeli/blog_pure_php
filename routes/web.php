@@ -11,3 +11,4 @@ $router->post('logout', 'LogoutController@logout');
 $router->get('migration', 'MigrationController@run')->middleware('auth');
 
 $router->get('posts/create', 'PostController@create')->middleware('auth');
+$router->post('posts', 'PostController@store')->middleware('auth');
