@@ -1,5 +1,8 @@
 <?php
 
+use Core\App;
+use Core\Request;
+
 if(! function_exists('env')) {
     function env(string $key, string $default = null): string|null
     {
@@ -42,5 +45,20 @@ if(! function_exists('view')) {
         extract($parameters);
 
         require base_path('/resources/views/'.$viewName.'.view.php');
+    }
+}
+
+if(! function_exists('request')) {
+    function request(?string $parameterName = null): mixed
+    {
+        $app = App::instance();
+        return $parameterName ? $app->instances[Request::class]->get($parameterName) : $app->instances[Request::class];
+    }
+}
+
+if(! function_exists('redirectTo')) {
+    function redirectTo($location)
+    {
+        header("location: {$location}");
     }
 }
