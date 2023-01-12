@@ -1,0 +1,1 @@
+<h1>Hi from view file</h1>
