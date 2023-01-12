@@ -9,3 +9,5 @@ $router->post('login', 'LoginController@submitLogin');
 $router->post('logout', 'LogoutController@logout');
 
 $router->get('migration', 'MigrationController@run')->middleware('auth');
+
+$router->get('posts/create', 'PostController@create')->middleware('auth');
