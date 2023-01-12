@@ -66,8 +66,14 @@ if (!function_exists('redirectTo')) {
 if (!function_exists('authUser')) {
     function authUser()
     {
+
         $app = App::instance();
-        return $app->get('AuthenticatedUser');
+
+        if($app->isAvailable('AuthenticatedUser')) {
+            return $app->get('AuthenticatedUser');
+        }
+
+        return null;
     }
 }
 
@@ -75,6 +81,6 @@ if (!function_exists('isAuth')) {
     function isAuth()
     {
         $app = App::instance();
-        return !is_null($app->get('AuthenticatedUser'));
+        return $app->isAvailable('AuthenticatedUser');
     }
 }

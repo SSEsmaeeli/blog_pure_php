@@ -135,4 +135,16 @@ class App
 
         return $dependencies;
     }
+
+    public function forget($key): void
+    {
+        if ($this->isAvailable($key)) {
+            unset($this->instances[$key]);
+        }
+    }
+
+    public function isAvailable($key): bool
+    {
+        return isset($this->instances[$key]);
+    }
 }

@@ -41,17 +41,20 @@
             <?php } ?>
             <li><a href="#">Authors</a></li>
 
-            <?php
-                if(isAuth()) {
-            ?>
-                    <li class="float-right mr-2"><a href="/login">Logout</a></li>
-            <?php
-                }else{
-            ?>
-                    <li class="float-right mr-2"><a href="/login">Login</a></li>
-            <?php
-                }
-            ?>
-
+            <li class="float-right mr-2">
+                <?php
+                    if(isAuth()) {
+                ?>
+                        <form action="logout" method="post" ">
+                            <button type="submit">Logout</button>
+                        </form>
+                <?php
+                    }else{
+                ?>
+                        <a href="/login">Login</a>
+                <?php
+                    }
+                ?>
+            </li>
         </ul>
     </nav>
