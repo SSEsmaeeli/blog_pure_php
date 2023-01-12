@@ -8,4 +8,9 @@ class PagesController
     {
         return view('index');
     }
+
+    public function login()
+    {
+        return view('login');
+    }
 }
