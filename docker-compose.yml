@@ -1,0 +1,70 @@
+version: "3"
+services:
+    app.local:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        image: app
+        container_name: application
+        restart: unless-stopped
+        tty: true
+        environment:
+            SERVICE_NAME: app
+            SERVICE_TAGS: dev
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+            - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+        networks:
+            - app-network
+    db:
+        image: mysql:8
+        container_name: mysql
+        restart: unless-stopped
+        cap_add:
+            - SYS_NICE
+        tty: true
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_ROOT_PASSWORD: ${DB_ROOT_USERNAME}
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        volumes:
+            - dbdata:/var/lib/mysql/
+        networks:
+            - app-network
+    phpmyadmin:
+        image: phpmyadmin:latest
+        container_name: phpmyadmin
+        ports:
+          - "8081:80"
+        environment:
+            PMA_HOST: db
+            PMA_PASSWORD: ${DB_ROOT_PASSWORD}
+
+        restart: unless-stopped
+        networks:
+            - app-network
+    nginx:
+        image: nginx:alpine
+        container_name: nginx
+        restart: unless-stopped
+        ports:
+            - "80:80"
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+        networks:
+            - app-network
+networks:
+    app-network:
+        driver: bridge
+volumes:
+    dbdata:
+        driver: local
+    mongodb_data_container:
+        driver: local
